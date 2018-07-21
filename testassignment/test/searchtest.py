@@ -20,5 +20,11 @@ class SearchTest(unittest.TestCase):
         self.wordList.download_file()
         self.assertTrue(self.wordList.file_exists())
 
+    def test_words_filter(self):
+        words = 'test Words that Meet the cr1ter1a 420'
+        filtered_words = ['test', 'that', 'the']
+
+        self.assertEqual(WordList.filter_valid_words(words), filtered_words)
+
 if __name__ == '__main__':
     unittest.main()

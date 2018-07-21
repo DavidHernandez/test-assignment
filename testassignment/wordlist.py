@@ -1,3 +1,4 @@
+import re
 import requests
 
 from pathlib import Path
@@ -16,4 +17,9 @@ class WordList():
         r.raise_for_status()
 
         with open('words.txt', 'w') as file:
-            file.write(r.text)
+            for word in WordList.filter_valid_words(r.text):
+                file.write(word)
+
+    @staticmethod
+    def filter_valid_words(words):
+        return re.findall(r"\b[a-z][a-zA-Z]+\b", words, re.MULTILINE)
