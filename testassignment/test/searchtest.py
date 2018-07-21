@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from testassignment.wordlist import WordList
@@ -5,6 +6,11 @@ from testassignment.wordlist import WordList
 class SearchTest(unittest.TestCase):
 
     def setUp(self):
+        try:
+            os.remove('words.txt')
+        except:
+            pass
+
         self.wordList = WordList()
 
     def test_file_does_not_exist(self):
