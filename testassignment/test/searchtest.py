@@ -7,7 +7,7 @@ class SearchTest(unittest.TestCase):
 
     def setUp(self):
         try:
-            os.remove('words.txt')
+            os.remove(WordList.WORDS_FILE)
         except:
             pass
 
@@ -25,6 +25,9 @@ class SearchTest(unittest.TestCase):
         filtered_words = ['test', 'that', 'the']
 
         self.assertEqual(WordList.filter_valid_words(words), filtered_words)
+
+    def test_get_random_words(self):
+        self.assertNotEqual(self.wordList.get_random_words(), self.wordList.get_random_words())
 
 if __name__ == '__main__':
     unittest.main()
