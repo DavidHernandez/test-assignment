@@ -7,6 +7,7 @@ from pathlib import Path
 class WordList():
 
     WORDS_FILE = 'words.txt'
+    WORD_LIMIT = 100
 
     def file_exists(self):
         file = Path(self.WORDS_FILE)
@@ -30,7 +31,7 @@ class WordList():
         with open(self.WORDS_FILE, 'r') as file:
             words = file.readlines()
 
-        lines = random.sample(range(len(words)), 100)
+        lines = random.sample(range(len(words)), self.WORD_LIMIT)
 
         selected_words = []
         for line in lines:

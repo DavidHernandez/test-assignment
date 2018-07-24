@@ -7,7 +7,7 @@ from lxml.cssselect import CSSSelector
 
 class WordSearch():
 
-    SEARCH_URL = 'https://duckduckgo.com/?q='
+    SEARCH_URL = 'https://duckduckgo.com/html/?q='
 
     def search(self, word):
         r = requests.get(self.SEARCH_URL + word)
@@ -26,7 +26,7 @@ class WordSearch():
 
         titles = []
         for match in results:
-            titles.append(match.text)
+            titles.append(match.text_content())
 
         return titles
 
