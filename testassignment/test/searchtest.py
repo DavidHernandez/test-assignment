@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from testassignment.wordlist import WordList
+from testassignment.wordlist import WordList, filter_valid_words
 
 class SearchTest(unittest.TestCase):
 
@@ -24,7 +24,7 @@ class SearchTest(unittest.TestCase):
         words = 'test Words that Meet the cr1ter1a 420'
         filtered_words = ['test', 'that', 'the']
 
-        self.assertEqual(WordList.filter_valid_words(words), filtered_words)
+        self.assertEqual(filter_valid_words(words), filtered_words)
 
     def test_get_random_words(self):
         self.assertNotEqual(self.wordList.get_random_words(), self.wordList.get_random_words())

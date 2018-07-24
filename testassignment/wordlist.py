@@ -20,7 +20,7 @@ class WordList():
         r.raise_for_status()
 
         with open(self.WORDS_FILE, 'w') as file:
-            for word in WordList.filter_valid_words(r.text):
+            for word in filter_valid_words(r.text):
                 file.write(word + '\n')
 
     def get_random_words(self):
@@ -38,6 +38,5 @@ class WordList():
 
         return selected_words
 
-    @staticmethod
-    def filter_valid_words(words):
-        return re.findall(r"\b[a-z][a-zA-Z]+\b", words, re.MULTILINE)
+def filter_valid_words(words):
+    return re.findall(r"\b[a-z][a-zA-Z]+\b", words, re.MULTILINE)
