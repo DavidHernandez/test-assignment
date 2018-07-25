@@ -35,7 +35,7 @@ class WordList():
 
         selected_words = []
         for line in lines:
-            selected_words.append(words[line])
+            selected_words.append(words[line].rstrip())
 
         return selected_words
 

@@ -7,7 +7,7 @@ from lxml.cssselect import CSSSelector
 
 class WordSearch():
 
-    SEARCH_URL = 'https://duckduckgo.com/html/?q='
+    SEARCH_URL = 'https://duckduckgo.com/html?q='
 
     def search(self, word):
         r = requests.get(self.SEARCH_URL + word)
@@ -34,8 +34,12 @@ class WordSearch():
         results = OrderedDict()
 
         for word in words:
-            titles = self.search(word)
+            try:
+                titles = self.search(word)
 
-            results[word] = titles
+                results[word] = titles
+            except:
+                # There was an error on the request. Maybe flood protection on?
+                pass
 
         return json.dumps(results)
