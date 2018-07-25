@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+from cache import Cache, InvalidCacheKeyException
 from wordsearch import WordSearch
 
 class WordSearchService(BaseHTTPRequestHandler):
@@ -18,7 +19,7 @@ class WordSearchService(BaseHTTPRequestHandler):
             self.send_response(404)
             return
 
-        json = WordSearch().get_json([word])
+        json = self.get_word(word)
 
         self.send_response(200)
         self.send_header('Content-type','text/json')
@@ -26,6 +27,16 @@ class WordSearchService(BaseHTTPRequestHandler):
 
         self.wfile.write(bytes(json, "utf8"))
         return
+
+    def get_word(self, word):
+        cache = Cache()
+        try:
+            json = cache.get(word)
+        except InvalidCacheKeyException:
+            json = WordSearch().get_json([word])
+            cache.set(word, json)
+
+        return json
 
 def main():
     server_address = ('127.0.0.1', 8081)

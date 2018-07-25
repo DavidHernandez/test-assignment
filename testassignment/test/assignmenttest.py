@@ -3,6 +3,7 @@ import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
+from testassignment.cache import Cache, InvalidCacheKeyException
 from testassignment.wordlist import WordList, filter_valid_words
 from testassignment.wordsearch import WordSearch
 
@@ -64,6 +65,25 @@ class WordSearchTest(unittest.TestCase):
 
         self.assertEqual(titles, '{"test": ["title 1", "title 2", "title 3"], "cow": ["title 1", "title 2", "title 3"]}')
 
+class CacheTest(unittest.TestCase):
+
+    def setUp(self):
+        self.cache = Cache()
+
+    @classmethod
+    def setUpClass(cls):
+        try:
+            os.remove(Cache.CACHE_FILE)
+        except:
+            pass
+
+    def test_get_empty_key(self):
+        self.assertRaises(InvalidCacheKeyException, self.cache.get, ['test'])
+
+    def test_set_cache_item(self):
+        self.cache.set('test', 'values')
+
+        self.assertTrue(self.cache.get('test'), 'values\n')
 
 if __name__ == '__main__':
     unittest.main()
